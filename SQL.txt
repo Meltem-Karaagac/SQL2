@@ -1,0 +1,471 @@
+SELECT ALL COLUMNS FROM TRACKS TABLE
+
+SELECT * FROM tracks
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+
+SELECT ONLY FOLLOWING COLUMNS FROM TRACKS TABLE: Name,Composer,UnitPrice
+
+SELECT Name,Composer,UnitPrice FROM tracks
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+
+HOW MANY RECORDS ARE THERE IN TRACKS TABLE?
+
+SELECT COUNT(*) FROM tracks
+
+Answer:
+3503
+
+SELECT COUNT(Composer) FROM tracks
+SELECT COUNT(Composer), COUNT(GenreId) FROM tracks
+Answer:
+2525
+3503
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+HOW MANY RECORDS ARE THERE IN ARTISTS TABLE?
+
+SELECT COUNT(*) FROM artists
+
+Answer:
+275
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+
+HOW MANY DIFFERENT/DISTINCT PRICES ARE THERE IN TRACKS TABLE
+
+SELECT DISTINCT UnitPrice FROM tracks
+
+Answer:
+0.99
+1.99
+
+SELECT count (DISTINCT UnitPrice) as DiffPrices FROM tracks
+Answer:
+DiffPrices
+2
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+WHAT IS THE TITLE OF THE ALBUM WITH ALBUMID=3
+
+SELECT Title FROM albums where AlbumId=3
+SELECT * FROM albums where AlbumId=3
+
+Answer: 
+Restless and Wild
+
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+What is the ArtistID of Metallica?
+SELECT * FROM artists WHERE NAME = 'Metallica'
+
+If you are not sure how it's spelled you can use the queries below, they all give same result
+SELECT * FROM artists WHERE NAME like 'Metal%'
+SELECT * FROM artists WHERE NAME like '_etal%'
+SELECT * FROM artists WHERE NAME like '%tallica'
+
+
+Answer:
+ArtistId	Name
+50			Metallica
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+How many albums does Metallica have? List them all
+
+Metallica has a ArtistID=50 so we need to use query below:
+SELECT * FROM albums WHERE ArtistId = 50
+
+Answer:
+AlbumId	Title					ArtistId
+35		Garage Inc. (Disc 1)	50
+148		Black Album				50
+149		Garage Inc. (Disc 2)	50
+150		Kill 'Em All			50
+151		Load					50
+152		Master Of Puppets		50
+153		ReLoad					50
+154		Ride The Lightning		50
+155		St. Anger				50
+156		...And Justice For All	50
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+Albums has different tracks in it. How many tracks does Metallica's "Master Of Puppets" album has? List all columns.
+(We have found that "Master Of Puppets" album has AlbumId=152)
+
+SELECT * FROM tracks WHERE AlbumId=152
+
+Answer: 8 records
+TrackId	Name							AlbumId	MediaTypeId	GenreId	Composer	Milliseconds	Bytes	UnitPrice
+1853	Battery							152	1	3			J.Hetfield/L.Ulrich		312424		10229577	0.99
+1854	Master Of Puppets				152	1	3			K.Hammett				515239		16893720	0.99
+1855	The Thing That Should Not Be	152	1	3			K.Hammett				396199		12952368	0.99
+1856	Welcome Home (Sanitarium)		152	1	3			K.Hammett				387186		12679965	0.99
+1857	Disposable Heroes				152	1	3			J.Hetfield/L.Ulrich		496718		16135560	0.99
+1858	Leper Messiah					152	1	3			C.Burton				347428		11310434	0.99
+1859	Orion							152	1	3			K.Hammett				500062		16378477	0.99
+1860	Damage Inc.						152	1	3			K.Hammett				330919		10725029	0.99
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+List all the tracks IDs and Names in Metallica's following albums 
+AlbumId	Title					
+35		Garage Inc. (Disc 1)
+148		Black Album			
+149		Garage Inc. (Disc 2)
+
+SELECT TrackID,Name FROM tracks WHERE AlbumId in (35,148,149)
+SELECT TrackID,Name FROM tracks WHERE AlbumId in ('35','148','149')
+SELECT TrackID,Name,AlbumId FROM tracks WHERE AlbumId in (35,148,149)
+
+Both queries work
+
+Answer: 39 rows (didn't copied all here)
+TrackId	Name
+408		Free Speech For The Dumb
+409		It's Electric
+410		Sabbra Cadabra
+...
+
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+Order the results of tracks in "Master Of Puppets" album A-Z according to column "Name"
+
+SELECT * FROM tracks WHERE AlbumId=152 ORDER BY Name
+
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+Bring the TrackId and Name of tracks in  "Master Of Puppets" album with TrackID between 1854 and 1858 
+
+SELECT TrackId,Name FROM tracks WHERE AlbumId=152 AND TrackID BETWEEN 1854 AND 1858
+
+Answer:
+TrackId	Name
+1854	Master Of Puppets
+1855	The Thing That Should Not Be
+1856	Welcome Home (Sanitarium)
+1857	Disposable Heroes
+1858	Leper Messiah
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+Bring the record with Minimum-Size in Bytes from tracks in  "Master Of Puppets" album 
+
+SELECT TrackId,Name, MIN(bytes) FROM tracks WHERE AlbumId=152 
+
+Answer:
+TrackId	Name	MIN(bytes)
+1853	Battery	10229577
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+Bring the record with Minimum-Size in Bytes from tracks in  "Master Of Puppets" album 
+
+SELECT TrackId,Name, MAX(bytes) FROM tracks WHERE AlbumId=152 
+
+Answer:
+TrackId	Name				MAX(bytes)
+1854	Master Of Puppets	16893720
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+Bring all records from tracks table and present every AlbumID and the max size-bytes track on it.
+(Track tablosunda bulunan her bir Album içindeki en büyük boyutu yanında sergileyin)
+
+If we are only working on Album 1, we can use below query and see that the first record has the max size
+SELECT AlbumId, bytes FROM tracks where AlbumId=1
+
+AlbumId	Bytes
+1		11170334
+1		6713451
+1		7636561
+1		6852860
+1		6599424
+1		8611245
+1		6566314
+1		8596840
+1		6706347
+1		8817038
+
+So we need to see the AlbumID=1 and other albums as below
+
+AlbumId	Bytes
+1		11170334
+...
+
+For this question, we need to group records according to AlbumID so that query will bring the max-size of each album
+
+SELECT AlbumId, MAX(bytes) FROM tracks GROUP BY AlbumId
+
+Answer: 347 rows (didn't copied all here)
+AlbumId	MAX(bytes)
+1		11170334
+2		5510424
+3		6290521
+4		12066294
+5		12374569
+6		16008629
+...
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+Bring all records from tracks table and present every AlbumID and the min size-bytes track on it.
+
+
+SELECT AlbumId, MAX(bytes) FROM tracks GROUP BY AlbumId
+
+Answer: 347 rows (didn't copied all here)
+AlbumId	MIN(bytes)
+1		6566314
+2		5510424
+3		3990994
+4		7032162
+5		7074167
+6		5793082
+...
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+What is the sum of all tracks cost? 
+
+SELECT SUM(UnitPrice) AS TotalCost  FROM tracks 
+
+Answer:
+TotalCost
+3680.9699999997
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+What is the avg price of all tracks cost? 
+
+SELECT AVG(UnitPrice) AS AvgCost FROM tracks 
+
+Answer:
+AvgCost
+1.05080502426483
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+What is the sum of each albums cost? 
+
+SELECT AlbumId,  SUM(UnitPrice ) AS TotalCost  FROM tracks GROUP BY AlbumId
+
+Answer:
+AlbumId	TotalCost
+1		9.9
+2		0.99
+3		2.97
+4		7.92
+5		14.85
+...
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+What is the avarage size of tracks in each album? 
+
+SELECT AlbumId,  AVG(Bytes) AS AvgSize  FROM tracks GROUP BY AlbumId
+
+Answer:
+AlbumId	TotalCost
+1	7827041.4
+2	5510424.0
+3	4871098.0
+4	10029878.0
+5	9618496.86666667
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+How many tracks have each album?
+
+SELECT AlbumId,  COUNT(*) AS TrackCount  FROM tracks GROUP BY AlbumId
+
+Answer:
+347
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+What is the AlbumID of the album with most track in it
+
+SELECT AlbumId, MAX(TrackCount) AS MaxTrack FROM (
+SELECT AlbumId,  COUNT(*) AS TrackCount  FROM tracks GROUP BY AlbumId)
+
+Answer: ID 141 has 57 tracks in it and it has the most track. We used subquery to find it with last question.
+AlbumId	MaxTrack
+141		57
+
+
+We can find the same result without subquery and we can use order by but it gives all the records
+
+SELECT AlbumId,  COUNT(*) AS TrackCount  FROM tracks GROUP BY AlbumId ORDER BY TrackCount DESC
+
+Answer:
+AlbumId	TrackCount
+141		57
+23		34
+73		30
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+At the beginnig of the lesson, we have used the queries below:
+
+SELECT * FROM artists WHERE NAME = 'Metallica' (We have found that Metallica has ArtistID=50)
+
+SELECT * FROM albums WHERE ArtistId = 50	(We have found the 10 albums of Metallica with ArtistID=50)
+
+AlbumId	Title					ArtistId
+35		Garage Inc. (Disc 1)	50
+148		Black Album				50
+149		Garage Inc. (Disc 2)	50
+150		Kill 'Em All			50
+151		Load					50
+152		Master Of Puppets		50
+153		ReLoad					50
+154		Ride The Lightning		50
+155		St. Anger				50
+156		...And Justice For All	50
+
+Let's find all the tracks of Metallica
+
+This gives the solution but it is not a good way: 
+SELECT * FROM tracks where AlbumId IN (
+'35',
+'148',
+'149',
+'150',
+'151',
+'152',
+'153',
+'154',
+'155',
+'156'
+)
+
+We need use joins. First let find the albums of Metallica with JOINS
+
+SELECT * 
+FROM albums al
+INNER JOIN artists ar on 
+al.ArtistId=ar.ArtistId
+WHERE al.ArtistId=50
+
+This brings us the following. We have used ArtistID as common key between tables.
+
+AlbumId	Title					ArtistId	ArtistId	Name
+35		Garage Inc. (Disc 1)	50			50			Metallica
+148		Black Album				50			50			Metallica
+149		Garage Inc. (Disc 2)	50			50			Metallica
+150		Kill 'Em All			50			50			Metallica
+151		Load					50			50			Metallica
+152		Master Of Puppets		50			50			Metallica
+153		ReLoad					50			50			Metallica
+154		Ride The Lightning		50			50			Metallica
+155		St. Anger				50			50			Metallica
+156		...And Justice For All	50			50			Metallica
+
+Now we need to get the AlbumID from this query and use as a parameter. So just SELECT * ---> SELECT AlbumID
+
+SELECT AlbumID
+FROM albums al
+INNER JOIN artists ar on 
+al.ArtistId=ar.ArtistId
+WHERE al.ArtistId=50
+
+This brings us the following, just column ArtistID
+AlbumId
+35
+148
+149
+150
+151
+152
+153
+154
+155
+156
+
+Now lets use the last one as subquery and bring all the tracks that belongs to Metallica:
+
+SELECT * 
+FROM tracks
+WHERE AlbumId IN 
+	(SELECT AlbumID
+	FROM albums al
+	INNER JOIN artists ar on 
+	al.ArtistId=ar.ArtistId
+	WHERE al.ArtistId=50)
+
+Result: 112 rows. Just as same as we have found above.
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+How many tracks has Metallica sold to each country?
+
+First, we know the each track id of Metallica, we can use them as a subquery to invoice_items table
+
+SELECT * 
+FROM invoice_items 
+WHERE TrackId IN 
+	(SELECT TrackId 
+	FROM tracks
+	WHERE AlbumId IN 
+		(SELECT AlbumID
+		FROM albums al
+		INNER JOIN artists ar on 
+		al.ArtistId=ar.ArtistId
+		WHERE al.ArtistId=50))
+
+Result: 91 records
+
+Now we can find these 91 records and country of them by INNER JOIN to invoices table
+
+SELECT *
+FROM invoice_items InvItems
+INNER JOIN invoices Inv ON InvItems.InvoiceId=Inv.InvoiceId
+
+WHERE TrackId IN 
+	(SELECT TrackId 
+	FROM tracks
+	WHERE AlbumId IN 
+		(SELECT AlbumID
+		FROM albums al
+		INNER JOIN artists ar on 
+		al.ArtistId=ar.ArtistId
+		WHERE al.ArtistId=50))
+
+Result: Still 91 rows with a lot of info but we need Country-TotalSales data
+We need to use DISTINCT BillingCountry to get every country only once and GROUP BY on BillingCountry
+
+SELECT DISTINCT BillingCountry, SUM(Quantity) as Quantity
+FROM invoice_items InvItems
+INNER JOIN invoices Inv ON InvItems.InvoiceId=Inv.InvoiceId
+
+WHERE TrackId IN 
+	(SELECT TrackId 
+	FROM tracks
+	WHERE AlbumId IN 
+		(SELECT AlbumID
+		FROM albums al
+		INNER JOIN artists ar on 
+		al.ArtistId=ar.ArtistId
+		WHERE al.ArtistId=50))
+		
+GROUP BY BillingCountry
+
+
+Result:
+
+BillingCountry	Quantity
+Argentina			6
+Belgium				1
+Brazil				6
+Canada				15
+Denmark				2
+France				10
+Germany				9
+Italy				1
+Netherlands			2
+Portugal			1
+Spain				2
+USA					27
+United Kingdom		9
+
+
